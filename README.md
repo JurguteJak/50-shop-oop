@@ -29,7 +29,8 @@ Design: ---
 
 ## ✅ Tasks
 
--   [x] layout render
+-   [x] demo completed task
+-   [ ] layout render
     -   [ ] header
     -   [ ] main content
     -   [ ] footer
