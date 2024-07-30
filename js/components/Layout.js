@@ -31,7 +31,13 @@ export class Layout {
                 title: 'Contant us',
             },
         ];
+        this.DOM = document.getElementById('app');
+        this.mainDOM = null;
+
         this.render();
+        this.headerEvents();
+
+        new this.pagesData[0].content(this.mainDOM);
     }
     header() {
         let navHTML = '';
@@ -56,40 +62,30 @@ export class Layout {
 
     headerEvents() {
         const buttonsDOM = document.querySelectorAll('.main-header-content button');
-        const mainDOM = document.querySelector('main.container');
-        const titleDOM = document.querySelector('head title');
+        this.mainDOM = document.querySelector('main.container');
 
         for (let i = 0; i < buttonsDOM.length; i++) {
-            const buttonDOM = buttonsDOM[i];
-            buttonDOM.addEventListener('click', () => {
+            buttonsDOM[i].addEventListener('click', () => {
                 const pageClass = this.pagesData[i].content;
-                mainDOM.innerHTML = (new pageClass().render());
-                document.body.style.backgroundColor = this.pagesData[i].background;
-                titleDOM.textContent = this.pagesData[i].title;
+                new pageClass(this.mainDOM);
+
             });
         }
     }
 
     main() {
-        const pageObject = new PageContact();
-        const HTML = `
-        <main class="container">
-            ${pageObject.render()}      
-        </main>`;
-        return HTML;
+        return `
+            <main class="container">
+                EMPTY CONTENT    
+            </main>`;
     }
 
     footer() {
-        const HTML = `<footer clascol-12">&copy; Copyright 2024</footer>`;
-        return HTML;
+        return '<footer clascol-12">&copy; Copyright 2024</footer>';
     }
 
     render() {
-        const DOM = document.getElementById('app');
         const HTML = this.header() + this.main() + this.footer();
-
-        DOM.insertAdjacentHTML('beforeend', HTML);
-
-        this.headerEvents();
+        this.DOM.insertAdjacentHTML('beforeend', HTML);
     }
 }
